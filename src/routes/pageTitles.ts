@@ -4,4 +4,5 @@ export const pageTitles: Record<string, string> = {
   "/register": "Register",
   "/forgot-password" : "Mot de passe oublier",
   "/reset-password" : "Réinitialisation du mot de passe",
+  "/dashboard/analytics": "Dashboard Analytics",
 };

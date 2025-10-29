@@ -18,7 +18,7 @@ export const useLogin = () => {
       toast.success("Connexion réussie", {
         description: `Bienvenue ${data.user.prenom} !`,
       });
-      navigate("/dashboard");
+      navigate("/dashboard/analytics");
     },
 
     onError: (error: unknown) => {
