@@ -7,7 +7,7 @@ import { ForgotPasswordForm } from "@/features/authentification/forgot-password/
 import { ResetPasswordForm } from "@/features/authentification/reset-password/components/ResetPasswordForm";
 // import { ProtectedRoute } from "./ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
-import Dashbaord from "@/features/dashboard/pages/Dashbaord";
+import { Dashboard } from "@/features/dashboard/pages/Dashbaord";
 
 
 export const AppRoutes = () => {
@@ -26,7 +26,7 @@ export const AppRoutes = () => {
               <MainLayout />
           }
         >
-          <Route path="analytics" element={<Dashbaord />} />
+          <Route path="analytics" element={<Dashboard />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
