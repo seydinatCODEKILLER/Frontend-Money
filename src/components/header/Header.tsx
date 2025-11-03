@@ -2,6 +2,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { UserMenu } from './UserMenu'
 import { useAuth } from '@/hooks/useAuth'
 import { ModeToggle } from '../theme/mode-toggle'
+import { NotificationsMenu } from './NotificationsMenu'
 
 export const Header = () => {
   const { user } = useAuth()
@@ -12,9 +13,9 @@ export const Header = () => {
       <div className="flex items-center gap-4">
         <SidebarTrigger />
         <div className="hidden md:block">
-          <h1 className="text-2xl font-bold text-foreground">Hackathon</h1>
+          <h1 className="text-2xl font-bold text-foreground">Moneywise</h1>
           <p className="text-sm text-muted-foreground">
-            Plateforme de gestion du musee
+            Plateforme de gestion financeière personnelle
           </p>
         </div>
       </div>
@@ -22,7 +23,7 @@ export const Header = () => {
       {/* Actions */}
       <div className="flex items-center gap-4">
         <ModeToggle />
-        {/* <NotificationsMenu /> */}
+        <NotificationsMenu />
         <UserMenu user={user ?? undefined} />
       </div>
     </header>

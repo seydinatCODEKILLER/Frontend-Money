@@ -50,7 +50,7 @@ export function SummaryCards({ summary }: SummaryCardsProps) {
     {
       title: "Alertes Budget",
       value: summary.budgetAlertsCount.toString(),
-      description: "Dépassements de budget",
+      description: "Budget Alerte",
       icon: AlertCircle,
       trend: summary.budgetAlertsCount > 0 ? "negative" : "positive",
       color: summary.budgetAlertsCount > 0 ? "text-orange-600" : "text-green-600"

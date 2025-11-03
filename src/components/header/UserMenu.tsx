@@ -18,6 +18,7 @@ interface UserMenuProps {
     nom?: string
     role?: string
     avatarUrl?: string
+    email?: string
   }
 }
 
@@ -50,7 +51,7 @@ export const UserMenu = ({ user }: UserMenuProps) => {
         {/* Affichage infos utilisateur dans le menu */}
         <DropdownMenuLabel className="flex flex-col items-start gap-1">
           <span className="font-medium">{user?.prenom} {user?.nom}</span>
-          <span className="text-xs text-muted-foreground capitalize">{user?.role}</span>
+          <span className="text-xs text-muted-foreground capitalize">{user?.email}</span>
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />

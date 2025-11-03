@@ -19,9 +19,12 @@ export const dashboardApi = {
     return response.data.data;
   },
 
-  getExpensesByCategory: async (): Promise<ExpensesByCategory> => {
+  getExpensesByCategory: async (period: string = "month"): Promise<ExpensesByCategory> => {
     const response = await apiClient.get<ApiResponse<ExpensesByCategory>>(
-      "/dashboard/expenses-by-category"
+      "/dashboard/expenses-by-category",
+      {
+        params: { period }
+      }
     );
     if (!response.data.success) {
       throw new Error(response.data.message || "Erreur lors du chargement des catégories");
@@ -29,9 +32,12 @@ export const dashboardApi = {
     return response.data.data;
   },
 
-  getMonthlyTrends: async (): Promise<MonthlyTrends> => {
+  getMonthlyTrends: async (months: number = 6): Promise<MonthlyTrends> => {
     const response = await apiClient.get<ApiResponse<MonthlyTrends>>(
-      "/dashboard/monthly-trends"
+      "/dashboard/monthly-trends",
+      {
+        params: { months }
+      }
     );
     if (!response.data.success) {
       throw new Error(response.data.message || "Erreur lors du chargement des tendances");

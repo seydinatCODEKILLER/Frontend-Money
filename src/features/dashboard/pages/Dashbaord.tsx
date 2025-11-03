@@ -4,26 +4,24 @@ import { RefreshCw } from "lucide-react";
 import { SummaryCards } from "../components/SummaryCards";
 import { RecentTransactions } from "../components/RecentTransactions";
 import { BudgetStatus } from "../components/BudgetStatus";
-// import { ExpensesPieChart } from "../components/ExpensesPieChart";
-// import { MonthlyTrendsChart } from "../components/MonthlyTrendsChart";
+import { useMonthlyTrends } from "../hooks/useMonthlyTrends";
+import { MonthlyTrendsChart } from "../components/MonthlyTrendsChart";
 import { DashboardHeader } from "../components/DashboardHeader";
 import { useDashboard } from "../hooks/useDashboard";
-// import { useExpensesByCategory } from "../hooks/useExpensesByCategory";
-// import { useMonthlyTrends } from "../hooks/useMonthlyTrends";
 import { useGlobalBudget } from "../hooks/useGlobalBudget";
+import { ExpensesPieChart } from "../components/ExpensesPieChart";
+import { useExpensesByCategory } from "../hooks/useExpensesByCategory";
 
 export function Dashboard() {
   const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useDashboard();
-  // const { data: expensesData, isLoading: expensesLoading, refetch: refetchExpenses } = useExpensesByCategory();
-  // const { data: trendsData, isLoading: trendsLoading, refetch: refetchTrends } = useMonthlyTrends();
+  const { data: monthlyTrends, isLoading: monthlyTrendsLoading } = useMonthlyTrends(6);
   const { isLoading: budgetLoading, refetch: refetchBudget } = useGlobalBudget();
+  const { data: expensesByCategory, isLoading: expensesLoading } = useExpensesByCategory("month");
 
-  const isLoading = overviewLoading || budgetLoading;
+  const isLoading = overviewLoading || budgetLoading || monthlyTrendsLoading || expensesLoading;
 
   const handleRefresh = () => {
     refetchOverview();
-    // refetchExpenses();
-    // refetchTrends();
     refetchBudget();
   };
 
@@ -62,33 +60,28 @@ export function Dashboard() {
       {/* Summary Cards */}
       <SummaryCards summary={overview.summary} />
 
-      {/* Charts Grid */}
+         {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Dépenses par Catégorie */}
-        {/* {expensesData && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <ExpensesPieChart data={expensesData} />
-          </motion.div>
-        )} */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          {monthlyTrends && <MonthlyTrendsChart data={monthlyTrends} />}
+        </motion.div>
 
-        {/* Tendances Mensuelles */}
-        {/* {trendsData && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <MonthlyTrendsChart data={trendsData} />
-          </motion.div>
-        )} */}
+         {/* Dépenses par Catégorie */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          {expensesByCategory && <ExpensesPieChart data={expensesByCategory} />}
+        </motion.div>
       </div>
 
       {/* Bottom Grid */}
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Transactions Récentes */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

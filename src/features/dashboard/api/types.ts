@@ -46,36 +46,43 @@ export interface CategoryData {
   percentage: number;
 }
 
-export interface ExpensesByCategory {
-  data: CategoryData[];
-  total: number;
-  period: string;
-}
-
-export interface MonthlyTrendsData {
-  labels: string[];
-  datasets: Array<{
-    label: string;
-    data: number[];
-    borderColor: string;
-    backgroundColor: string;
-  }>;
-}
-
-export interface MonthlyTrends {
-  data: MonthlyTrendsData;
-  summary: {
-    totalRevenue: number;
-    totalExpenses: number;
-    netFlow: number;
-  };
-  period: string;
-}
-
 export interface GlobalBudget {
   totalBudget: number;
   totalSpent: number;
   remaining: number;
   percentageUsed: number;
   categories: BudgetStatus[];
+}
+
+export interface MonthlyTrendsData {
+  month: string;
+  period: string;
+  revenue: number;
+  expenses: number;
+  balance: number;
+}
+
+export interface MonthlyTrends {
+  data: MonthlyTrendsData[];
+  summary: {
+    totalRevenue: number;
+    totalExpenses: number;
+  };
+  period: string;
+}
+
+export interface ExpenseCategory {
+  id: string;
+  name: string;
+  value: number;
+  count: number;
+  color: string;
+  icon: string;
+  percentage: number;
+}
+
+export interface ExpensesByCategory {
+  data: ExpenseCategory[];
+  total: number;
+  period: string;
 }
