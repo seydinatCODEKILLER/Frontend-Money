@@ -5,4 +5,5 @@ export const pageTitles: Record<string, string> = {
   "/forgot-password" : "Mot de passe oublier",
   "/reset-password" : "Réinitialisation du mot de passe",
   "/dashboard/analytics": "Dashboard Analytics",
+  "/dashboard/transactions": "Dashboard Transactions",
 };

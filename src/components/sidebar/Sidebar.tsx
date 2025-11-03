@@ -3,8 +3,6 @@ import {
   Receipt,
   Tag,
   User,
-  Wallet,
-  Settings
 } from 'lucide-react';
 import { 
   Sidebar, 
@@ -13,7 +11,6 @@ import {
   SidebarGroupLabel, 
   SidebarGroupContent, 
   SidebarMenu, 
-  SidebarSeparator 
 } from '@/components/ui/sidebar';
 import { SidebarNavItem } from './SidebarNavItem';
 import { AppSidebarHeader } from './SidebarHeader';
@@ -26,7 +23,7 @@ interface AppSidebarProps {
 const navigationItems = [
   { 
     title: 'Tableau de bord', 
-    href: '/dashboard', 
+    href: '/dashboard/analytics', 
     icon: LayoutDashboard,
     description: ''
   },
@@ -46,15 +43,6 @@ const navigationItems = [
     title: 'Profil', 
     href: '/dashboard/profile', 
     icon: User,
-    description: ''
-  },
-];
-
-const accountItems = [
-  { 
-    title: 'Abonnement', 
-    href: '/dashboard/subscription', 
-    icon: Wallet,
     description: ''
   },
 ];
@@ -83,31 +71,6 @@ export const AppSidebar = ({ userRole = 'user' }: AppSidebarProps) => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarSeparator />
-
-        {/* Compte & Paramètres */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Compte</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {accountItems.map((item) => (
-                <SidebarNavItem
-                  key={item.title}
-                  to={item.href}
-                  icon={item.icon}
-                  label={item.title}
-                  description={item.description}
-                />
-              ))}
-              <SidebarNavItem
-                to="/dashboard/settings"
-                icon={Settings}
-                label="Paramètres"
-                description=""
-              />
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
       </SidebarContent>
 
       <AppSidebarFooter />

@@ -256,7 +256,7 @@ export const LoginForm = () => {
                 >
                   <Button
                     type="submit"
-                    className="w-full h-12 rounded-xl bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full h-12 cursor-pointer rounded-xl bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                     disabled={isPending}
                     size="lg"
                   >

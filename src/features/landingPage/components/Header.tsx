@@ -68,7 +68,7 @@ export function Header() {
           <Button asChild variant="ghost" size="sm" className="hidden sm:flex">
             <Link to="/login">Se connecter</Link>
           </Button>
-          <Button asChild size="sm" className="rounded-full text-xs sm:text-sm">
+          <Button asChild size="sm" className="rounded text-xs sm:text-sm">
             <Link to="/register">S'inscrire</Link>
           </Button>
           
