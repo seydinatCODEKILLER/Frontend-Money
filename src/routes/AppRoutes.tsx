@@ -2,13 +2,14 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { LandingPage } from "@/features/landingPage/pages/LandingPage";
 import { LoginForm } from "@/features/authentification/login/components/LoginForm";
-import { RegisterForm } from "@/features/authentification/register/components/RegisterForm";
+// import { RegisterForm } from "@/features/authentification/register/components/RegisterForm";
 import { ForgotPasswordForm } from "@/features/authentification/forgot-password/componenets/ForgotPasswordForm";
 import { ResetPasswordForm } from "@/features/authentification/reset-password/components/ResetPasswordForm";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Dashboard } from "@/features/dashboard/pages/Dashbaord";
 import Transaction from "@/features/transactions/pages/Transaction";
+import { OnboardingPage } from "@/features/authentification/onboarding/pages/OnboardingPage";
 
 export const AppRoutes = () => {
   return (
@@ -17,7 +18,7 @@ export const AppRoutes = () => {
         {/* Routes publiques */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/register" element={<OnboardingPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
         <Route path="/reset-password" element={<ResetPasswordForm />} />
         
