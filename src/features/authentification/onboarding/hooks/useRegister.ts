@@ -24,7 +24,10 @@ export const useRegister = () => {
 
   return useMutation<LoginResponse, unknown, RegisterWithOnboardingCredentials>({
     mutationFn: (credentials) => 
-      registerApi.register(credentials.personalInfo),
+      registerApi.register({
+        ...credentials.personalInfo,
+        onboardingData: credentials.onboardingData,
+      }),
 
     onSuccess: (data) => {
       setUser(data);
@@ -32,6 +35,7 @@ export const useRegister = () => {
         description: `Parfait ${data.user.prenom} ! Votre espace personnalisé est prêt.`,
         duration: 5000,
       });
+      console.log("Inscription réussie avec les données d'onboarding :", data);
       navigate("/dashboard/analytics");
     },
 

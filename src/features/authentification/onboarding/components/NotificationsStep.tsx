@@ -1,9 +1,8 @@
-// components/onboarding/steps/NotificationsStep.tsx
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Bell, TrendingUp, AlertTriangle, Mail } from "lucide-react";
+import { Bell, TrendingUp, AlertTriangle, Mail, Loader2, CheckCircle2 } from "lucide-react";
 
 // Interface pour les préférences de notifications
 export interface NotificationsData {
@@ -18,6 +17,7 @@ interface NotificationsStepProps {
   onUpdate: (data: NotificationsData) => void;
   onComplete: () => void;
   onBack: () => void;
+  isPending: boolean;
 }
 
 // Type pour les options de notification
@@ -58,7 +58,8 @@ export const NotificationsStep = ({
   data, 
   onUpdate, 
   onComplete, 
-  onBack 
+  onBack,
+  isPending 
 }: NotificationsStepProps) => {
   
   // Gestion du changement d'état des notifications
@@ -73,6 +74,9 @@ export const NotificationsStep = ({
   const handleComplete = (): void => {
     onComplete();
   };
+
+  // Calcul du nombre de notifications activées
+  const enabledNotificationsCount = Object.values(data).filter(Boolean).length;
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -131,6 +135,7 @@ export const NotificationsStep = ({
                   handleNotificationToggle(option.id, checked)
                 }
                 aria-label={`Activer/désactiver ${option.title}`}
+                disabled={isPending}
               />
             </motion.div>
           ))}
@@ -166,7 +171,7 @@ export const NotificationsStep = ({
           <p className="text-sm text-slate-600 dark:text-slate-400">
             Notifications activées :{" "}
             <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-              {Object.values(data).filter(Boolean).length} sur {Object.values(data).length}
+              {enabledNotificationsCount} sur {Object.values(data).length}
             </span>
           </p>
         </motion.div>
@@ -178,6 +183,7 @@ export const NotificationsStep = ({
             variant="outline"
             onClick={onBack}
             className="rounded-xl px-8"
+            disabled={isPending}
           >
             Retour
           </Button>
@@ -185,12 +191,136 @@ export const NotificationsStep = ({
           <Button
             type="button"
             onClick={handleComplete}
-            className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl px-8 shadow-lg shadow-blue-500/25 hover:shadow-xl transition-all duration-300"
+            disabled={isPending}
+            className={`
+              relative rounded-xl px-8 shadow-lg transition-all duration-300
+              ${isPending 
+                ? "bg-slate-400 cursor-not-allowed" 
+                : "bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 hover:shadow-xl"
+              }
+            `}
             size="lg"
           >
-            Terminer l'installation
+            {/* Contenu du bouton avec état de chargement */}
+            <motion.div
+              className="flex items-center gap-2"
+              initial={false}
+              animate={{ 
+                opacity: isPending ? 0 : 1,
+                scale: isPending ? 0.8 : 1 
+              }}
+            >
+              <span>Terminer l'installation</span>
+              {!isPending && (
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                </motion.div>
+              )}
+            </motion.div>
+
+            {/* Loader overlay */}
+            {isPending && (
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Finalisation...</span>
+                </div>
+              </motion.div>
+            )}
           </Button>
         </div>
+
+        {/* Message de statut pendant le chargement */}
+        <AnimatePresence>
+          {isPending && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-200 dark:border-blue-800"
+            >
+              <div className="flex items-center justify-center gap-3">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                >
+                  <Loader2 className="w-5 h-5 text-blue-500" />
+                </motion.div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                    Préparation de votre espace...
+                  </p>
+                  <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                    Création de vos catégories et paramètres personnalisés
+                  </p>
+                </div>
+              </div>
+
+              {/* Barre de progression animée */}
+              <motion.div
+                className="mt-3 w-full bg-blue-200 dark:bg-blue-800 rounded-full h-1"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <motion.div
+                  className="bg-gradient-to-r from-blue-500 to-emerald-500 h-1 rounded-full"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ 
+                    duration: 2, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Indicateur de progression des étapes */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-6 text-center"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 rounded-full">
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((step) => (
+                <motion.div
+                  key={step}
+                  className={`
+                    w-2 h-2 rounded-full transition-all duration-300
+                    ${step === 5 
+                      ? (isPending ? "bg-blue-500 scale-125" : "bg-emerald-500") 
+                      : "bg-emerald-400"
+                    }
+                  `}
+                  animate={step === 5 && isPending ? {
+                    scale: [1, 1.2, 1],
+                    opacity: [1, 0.7, 1]
+                  } : {}}
+                  transition={step === 5 && isPending ? {
+                    duration: 1,
+                    repeat: Infinity
+                  } : {}}
+                />
+              ))}
+            </div>
+            <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+              {isPending ? "Finalisation..." : "Configuration terminée"}
+            </span>
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   );

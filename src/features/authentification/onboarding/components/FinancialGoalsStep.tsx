@@ -110,7 +110,7 @@ export const FinancialGoalsStep = ({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-2xl"
+        className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-3xl p-2 md:p-8 border border-slate-200 dark:border-slate-700 shadow-2xl"
       >
         {/* En-tête */}
         <div className="text-center mb-8">

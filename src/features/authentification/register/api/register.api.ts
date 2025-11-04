@@ -8,6 +8,7 @@ export interface RegisterCredentials {
   email: string;
   password: string;
   avatar?: File;
+  onboardingData?: unknown;
 }
 
 export const registerApi = {

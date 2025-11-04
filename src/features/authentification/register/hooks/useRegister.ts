@@ -11,7 +11,7 @@ export const useRegister = () => {
   const navigate = useNavigate();
 
   return useMutation<LoginResponse, unknown, RegisterCredentials>({
-    mutationFn: (credentials: RegisterCredentials) => registerApi.register(credentials),
+    mutationFn: (credentials: RegisterCredentials) =>  registerApi.register(credentials),
 
     onSuccess: (data) => {
       setUser(data);

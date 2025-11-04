@@ -50,26 +50,22 @@ export const PersonalInfoStep = ({ data, onUpdate, onNext, onBack }: PersonalInf
 
   // Gestion du changement d'avatar avec typage approprié
   const handleAvatarChange = (files: FileList | null): void => {
-    if (files && files.length > 0) {
-      const file = files[0];
-      
-      // Validation basique du fichier
-      if (!file.type.startsWith('image/')) {
-        console.warn('Le fichier sélectionné n\'est pas une image');
-        return;
-      }
+  if (!files?.length) return;
+  const file = files[0];
 
-      const previewUrl = URL.createObjectURL(file);
-      setAvatarPreview(previewUrl);
-      
-      // Mise à jour des données avec le nouveau fichier
-      const currentFormData = form.getValues();
-      onUpdate({ 
-        ...currentFormData, 
-        avatar: file 
-      });
-    }
-  };
+  if (!file.type.startsWith("image/")) return;
+
+  const previewUrl = URL.createObjectURL(file);
+  setAvatarPreview(previewUrl);
+
+  // ✅ Mettre à jour react-hook-form
+  form.setValue("avatar", file, { shouldValidate: true });
+
+  // ✅ Mettre à jour les données de l'étape (onboarding)
+  onUpdate({ ...form.getValues(), avatar: file });
+};
+
+
 
   // Soumission du formulaire avec typage
   const onSubmit = (formData: PersonalInfoFormData): void => {
@@ -90,197 +86,162 @@ export const PersonalInfoStep = ({ data, onUpdate, onNext, onBack }: PersonalInf
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-2xl"
-      >
-        {/* En-tête */}
-        <div className="text-center mb-8">
-          <motion.div
-            className="w-16 h-16 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-2xl mx-auto mb-4 flex items-center justify-center"
-            whileHover={{ scale: 1.05 }}
-          >
-            <User className="w-8 h-8 text-white" />
-          </motion.div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-            Créer votre profil
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300">
-            Personnalisez votre expérience MoneyWise
-          </p>
-        </div>
+  <div className=" ">
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.45 }}
+      className="w-full lg:max-w-5xl bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-white/50 dark:border-slate-600/50 rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-4"
+    >
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Avatar Upload */}
-            <div className="flex justify-center">
+      {/* Header */}
+      <div className="text-center mb-10">
+        <h2 className="text-4xl font-semibold text-slate-800 dark:text-white">
+          Créer votre profil ✨
+        </h2>
+        <p className="text-sm text-slate-500">
+          Personnalisez votre expérience MoneyWise
+        </p>
+      </div>
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 items-center">
+
+            {/* ---- Avatar Section (Left) ---- */}
+            <div className="flex flex-col items-center gap-6">
+
               <motion.div
-                className="relative cursor-pointer"
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="relative cursor-pointer select-none"
                 onClick={handleAvatarClick}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e: React.KeyboardEvent) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    handleAvatarClick();
-                  }
-                }}
               >
-                <Avatar className="w-24 h-24 border-4 border-white dark:border-slate-800 shadow-lg">
+                <Avatar className="w-40 h-40 border-4 border-white shadow-xl">
                   {avatarPreview ? (
-                    <AvatarImage 
-                      src={avatarPreview} 
-                      alt="Aperçu de l'avatar" 
-                      onLoad={() => cleanupAvatarPreview()}
-                    />
+                    <AvatarImage src={avatarPreview} onLoad={() => cleanupAvatarPreview()} />
                   ) : (
-                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-emerald-500 text-white text-2xl">
-                      <User className="w-8 h-8" />
+                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-emerald-500 text-white text-4xl flex items-center justify-center">
+                      <User className="w-12 h-12" />
                     </AvatarFallback>
                   )}
                 </Avatar>
-                
-                {/* Input fichier caché */}
+
                 <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/gif"
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   ref={fileInputRef}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => 
-                    handleAvatarChange(e.target.files)
-                  }
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleAvatarChange(e.target.files)}
                 />
-                
-                {/* Badge d'upload */}
+
                 <motion.div
-                  className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-2 rounded-full shadow-lg"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.12 }}
+                  className="absolute -bottom-3 -right-3 bg-emerald-500 text-white p-3 rounded-full shadow-lg"
                 >
-                  <Upload className="w-4 h-4" />
+                  <Upload className="w-5 h-5" />
                 </motion.div>
               </motion.div>
+
+              <p className="text-center text-sm text-slate-500">
+                Cliquez sur l’avatar pour télécharger une image
+              </p>
             </div>
 
-            {/* Champ Prénom */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* ---- Form Fields (Right) ---- */}
+            <div className="space-y-6">
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="prenom"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Prénom *</FormLabel>
+                      <FormControl>
+                        <Input {...field} className="h-12 rounded-xl" placeholder="Votre prénom" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="nom"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nom *</FormLabel>
+                      <FormControl>
+                        <Input {...field} className="h-12 rounded-xl" placeholder="Votre nom" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
-                name="prenom"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium">Prénom *</FormLabel>
+                    <FormLabel>Email *</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Votre prénom"
-                        className="h-12 rounded-xl border-2 border-slate-200 focus:border-blue-500 transition-all"
-                        {...field}
-                      />
+                      <Input {...field} className="h-12 rounded-xl" placeholder="exemple@email.com"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* Champ Nom */}
               <FormField
                 control={form.control}
-                name="nom"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium">Nom *</FormLabel>
+                    <FormLabel>Mot de passe *</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Votre nom"
-                        className="h-12 rounded-xl border-2 border-slate-200 focus:border-blue-500 transition-all"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          {...field}
+                          type={showPassword ? "text" : "password"}
+                          className="h-12 rounded-xl pr-12"
+                          placeholder="Votre mot de passe"
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute right-0 top-0 h-12 w-12"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <EyeOff /> : <Eye />}
+                        </Button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
             </div>
+          </div>
 
-            {/* Champ Email */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium">Email *</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="votre@email.com"
-                      type="email"
-                      className="h-12 rounded-xl border-2 border-slate-200 focus:border-blue-500 transition-all"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          {/* Buttons */}
+          <div className="flex justify-between mt-10">
+            <Button variant="outline" onClick={onBack} className="rounded-xl px-8">
+              Retour
+            </Button>
+            <Button type="submit" className="rounded-xl px-10 bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg">
+              Continuer
+            </Button>
+          </div>
+        </form>
+      </Form>
 
-            {/* Champ Mot de passe */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium">Mot de passe *</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Input
-                        placeholder="Votre mot de passe"
-                        type={showPassword ? "text" : "password"}
-                        className="h-12 rounded-xl border-2 border-slate-200 focus:border-blue-500 pr-12 transition-all"
-                        {...field}
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-12 w-12 hover:bg-transparent"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label={showPassword ? "Cacher le mot de passe" : "Afficher le mot de passe"}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4 text-slate-400" />
-                        ) : (
-                          <Eye className="h-4 w-4 text-slate-400" />
-                        )}
-                      </Button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    </motion.div>
+  </div>
+);
 
-            {/* Boutons de navigation */}
-            <div className="flex justify-between pt-6">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={onBack}
-                className="rounded-xl px-8"
-              >
-                Retour
-              </Button>
-              
-              <Button
-                type="submit"
-                className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl px-8 shadow-lg shadow-blue-500/25"
-              >
-                Continuer
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </motion.div>
-    </div>
-  );
 };
