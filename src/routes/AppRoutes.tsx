@@ -7,9 +7,9 @@ import { ResetPasswordForm } from "@/features/authentification/reset-password/co
 import { ProtectedRoute } from "./ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Dashboard } from "@/features/dashboard/pages/Dashbaord";
-import Transaction from "@/features/transactions/pages/Transaction";
 import { OnboardingPage } from "@/features/authentification/onboarding/pages/OnboardingPage";
 import { CategoriesManager } from "@/features/categories/pages/CategoriesManager";
+import { TransactionsManager } from "@/features/transactions/pages/Transaction";
 
 export const AppRoutes = () => {
   return (
@@ -32,7 +32,7 @@ export const AppRoutes = () => {
           }
         >
           <Route path="analytics" element={<Dashboard />} />
-          <Route path="transactions" element={<Transaction />} />
+          <Route path="transactions" element={<TransactionsManager />} />
           <Route path="categories" element={<CategoriesManager />} />
           <Route path="" element={<Navigate to="/dashboard/analytics" replace />} />
         </Route>
