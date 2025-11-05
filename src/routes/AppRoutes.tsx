@@ -11,6 +11,7 @@ import { OnboardingPage } from "@/features/authentification/onboarding/pages/Onb
 import { CategoriesManager } from "@/features/categories/pages/CategoriesManager";
 import { TransactionsManager } from "@/features/transactions/pages/Transaction";
 import { AlertsManager } from "@/features/alerts/pages/AlertsManager";
+import { ProfileManager } from "@/features/profile/pages/ProfileManager";
 
 export const AppRoutes = () => {
   return (
@@ -36,6 +37,7 @@ export const AppRoutes = () => {
           <Route path="transactions" element={<TransactionsManager />} />
           <Route path="categories" element={<CategoriesManager />} />
           <Route path="notifications" element={<AlertsManager />} />
+          <Route path="profile" element={<ProfileManager />} />
           <Route path="" element={<Navigate to="/dashboard/analytics" replace />} />
         </Route>
         

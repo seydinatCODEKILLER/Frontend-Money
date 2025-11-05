@@ -7,6 +7,7 @@ export interface ApiUser {
   role: 'user';
   avatarUrl?: string;
   statut: 'actif' | 'inactif';
+  createdAt: string;
 }
 
 export interface LoginCredentials {
