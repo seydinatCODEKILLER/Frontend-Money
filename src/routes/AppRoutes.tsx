@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { LandingPage } from "@/features/landingPage/pages/LandingPage";
 import { LoginForm } from "@/features/authentification/login/components/LoginForm";
-// import { RegisterForm } from "@/features/authentification/register/components/RegisterForm";
 import { ForgotPasswordForm } from "@/features/authentification/forgot-password/componenets/ForgotPasswordForm";
 import { ResetPasswordForm } from "@/features/authentification/reset-password/components/ResetPasswordForm";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -10,6 +9,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { Dashboard } from "@/features/dashboard/pages/Dashbaord";
 import Transaction from "@/features/transactions/pages/Transaction";
 import { OnboardingPage } from "@/features/authentification/onboarding/pages/OnboardingPage";
+import { CategoriesManager } from "@/features/categories/pages/CategoriesManager";
 
 export const AppRoutes = () => {
   return (
@@ -33,6 +33,7 @@ export const AppRoutes = () => {
         >
           <Route path="analytics" element={<Dashboard />} />
           <Route path="transactions" element={<Transaction />} />
+          <Route path="categories" element={<CategoriesManager />} />
           <Route path="" element={<Navigate to="/dashboard/analytics" replace />} />
         </Route>
         
