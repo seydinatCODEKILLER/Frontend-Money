@@ -10,6 +10,7 @@ import { Dashboard } from "@/features/dashboard/pages/Dashbaord";
 import { OnboardingPage } from "@/features/authentification/onboarding/pages/OnboardingPage";
 import { CategoriesManager } from "@/features/categories/pages/CategoriesManager";
 import { TransactionsManager } from "@/features/transactions/pages/Transaction";
+import { AlertsManager } from "@/features/alerts/pages/AlertsManager";
 
 export const AppRoutes = () => {
   return (
@@ -34,6 +35,7 @@ export const AppRoutes = () => {
           <Route path="analytics" element={<Dashboard />} />
           <Route path="transactions" element={<TransactionsManager />} />
           <Route path="categories" element={<CategoriesManager />} />
+          <Route path="notifications" element={<AlertsManager />} />
           <Route path="" element={<Navigate to="/dashboard/analytics" replace />} />
         </Route>
         

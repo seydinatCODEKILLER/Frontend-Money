@@ -1,4 +1,3 @@
-// features/alerts/types/alert.types.ts
 export type AlertType = 'BUDGET_DEPASSE' | 'SEUIL_ATTEINT' | 'DEPENSE_IMPORTANTE'
 export type AlertSource = 'GLOBAL' | 'CATEGORY' | 'TRANSACTION'
 

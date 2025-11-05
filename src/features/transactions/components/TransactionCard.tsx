@@ -147,7 +147,7 @@ export function TransactionCard({
       </CardContent>
 
       {/* Actions */}
-      <CardFooter className="p-4 pt-2 bg-gradient-to-t from-white/80 to-transparent dark:from-gray-900/80 backdrop-blur-sm border-t border-gray-100/50 dark:border-gray-700/50">
+      <CardFooter className="pt-2 bg-gradient-to-t from-white/80 to-transparent dark:from-gray-900/80 backdrop-blur-sm border-t border-gray-100/50 dark:border-gray-700/50">
         <div className="flex justify-end gap-2 w-full">
           {isDeleted ? (
             <Button

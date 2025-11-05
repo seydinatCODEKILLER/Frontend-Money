@@ -1,4 +1,6 @@
 import {
+  BarChart3,
+  Bell,
   LayoutDashboard,
   Receipt,
   Tag,
@@ -45,6 +47,18 @@ const navigationItems = [
     icon: User,
     description: ''
   },
+  {
+    title: 'Notifications',
+    href: '/dashboard/notifications',
+    icon: Bell,
+    description: ''
+  },
+  {
+    title: 'Rapports',
+    href: '/dashboard/reports',
+    icon: BarChart3,
+    description: ''
+  }
 ];
 
 export const AppSidebar = ({ userRole = 'user' }: AppSidebarProps) => {
