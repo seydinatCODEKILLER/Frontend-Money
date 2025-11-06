@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { toast } from "sonner";
 import type { ApiUser, LoginResponse } from "@/types/auth.type";
 import { authApi } from "@/features/authentification/login/api/auth";
+import type { AxiosError } from "axios";
 
 interface AuthStore {
   user: ApiUser | null;
@@ -38,29 +39,35 @@ export const useAuthStore = create<AuthStore>()(
           isAuthenticated: false,
           isLoading: false,
         });
-        if(reason){
+        if (reason) {
           toast.error(reason);
-        }else {
+        } else {
           toast.info("Déconnexion réussie");
         }
       },
 
       initializeAuth: async () => {
-  const { token } = get();
+        const { token } = get();
 
-  if (!token) {
-    set({ isAuthenticated: false, isLoading: false });
-    return;
-  }
+        if (!token) {
+          set({ isAuthenticated: false, isLoading: false });
+          return;
+        }
 
-  try {
-    const user = await authApi.getCurrentUser();
-    set({ user, isAuthenticated: true, isLoading: false });
-  } catch {
-    get().logout("Session expirée. Veuillez vous reconnecter.");
-    set({ isLoading: false });
-  }
-},
+        try {
+          const user = await authApi.getCurrentUser();
+          set({ user, isAuthenticated: true, isLoading: false });
+        } catch (error: unknown) {
+          const err = error as AxiosError;
+          const status = err.response?.status;
+          if (status === 401) {
+            get().logout("Session expirée. Veuillez vous reconnecter.");
+          } else {
+            set({ isAuthenticated: true });
+          }
+          set({ isLoading: false });
+        }
+      },
     }),
     {
       name: "auth-storage",
@@ -73,4 +80,3 @@ export const useAuthStore = create<AuthStore>()(
     }
   )
 );
-

@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Loader2, Mail, ArrowLeft, Shield, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { IMAGE_URL } from "@/assets/assets";
 
 export const ForgotPasswordForm = () => {
   const { mutate: requestReset, isPending, isSuccess } = useForgotPassword();
@@ -40,68 +41,13 @@ export const ForgotPasswordForm = () => {
       >
         <div className="absolute inset-0 w-full h-full">
           <img
-            src="https://cdn.pixabay.com/photo/2022/04/03/02/26/ethereum-7107978_640.jpg"
+            src={IMAGE_URL.FORGOT_PASSWORD}
             alt="MoneyWise Security"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-blue-600/20 backdrop-blur-[1px]" />
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-10 flex items-center justify-center w-full h-full">
-          <motion.div
-            className="text-center text-white px-8 max-w-md"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <motion.h1
-              className="text-4xl md:text-5xl font-bold mb-6 tracking-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              Sécurité{" "}
-              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-                MoneyWise
-              </span>
-            </motion.h1>
-            <motion.p
-              className="text-white text-lg leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
-              Votre sécurité est notre priorité. Nous vous aidons à retrouver l'accès à votre compte en toute sécurité.
-            </motion.p>
-
-            {/* Security Features */}
-            <motion.div
-              className="mt-8 space-y-3 text-left"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-            >
-              {[
-                "🔐 Lien de réinitialisation sécurisé",
-                "⏰ Lien valable 1 heure",
-                "📧 Envoi instantané par email",
-                "🛡️ Aucun mot de passe stocké en clair"
-              ].map((feature, index) => (
-                <motion.div
-                  key={feature}
-                  className="flex items-center gap-3 text-white"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1 + index * 0.1 }}
-                >
-                  <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                  <span className="text-sm">{feature}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
       </motion.div>
 
       {/* Right Section - Forgot Password Form */}

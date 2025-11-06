@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Loader2, Eye, EyeOff, Wallet, Shield } from "lucide-react";
 import { useState } from "react";
+import { IMAGE_URL } from "@/assets/assets";
 
 export const LoginForm = () => {
   const { mutate: login, isPending } = useLogin();
@@ -75,15 +76,14 @@ export const LoginForm = () => {
           }}
         >
           <img
-            src="https://cdn.pixabay.com/photo/2018/04/19/18/40/finance-3333928_640.jpg"
+            src={IMAGE_URL.CONNEXION}
             alt="MoneyWise Dashboard"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-blue-600/20 backdrop-blur-[1px]" />
         </motion.div>
 
         {/* Content Overlay */}
-        <div className="relative z-10 flex items-center justify-center w-full h-full">
+        {/* <div className="relative z-10 flex items-center justify-center w-full h-full">
           <motion.div
             className="text-center text-white px-8 max-w-md"
             initial={{ opacity: 0, y: 30 }}
@@ -111,7 +111,7 @@ export const LoginForm = () => {
               suivez vos dépenses et atteignez vos objectifs financiers.
             </motion.p>
           </motion.div>
-        </div>
+        </div> */}
       </motion.div>
 
       {/* Right Section - Login Form */}
