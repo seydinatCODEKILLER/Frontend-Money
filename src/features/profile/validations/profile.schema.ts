@@ -10,7 +10,6 @@ export const profileFormSchema = z.object({
     .min(2, "Le prénom doit contenir au moins 2 caractères")
     .max(50, "Le prénom ne peut pas dépasser 50 caractères")
     .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Le prénom ne doit contenir que des lettres"),
-  email: z.string().email("Adresse email invalide"),
   avatarFile: z.instanceof(File).optional(),
 }).refine((data) => {
   if (data.avatarFile) {

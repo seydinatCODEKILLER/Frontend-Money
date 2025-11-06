@@ -57,13 +57,12 @@ export function ReportFilters({ onGenerate, isGenerating }: ReportFiltersProps) 
 
   const isFormValid = filters.reportType && filters.startDate && filters.endDate;
 
-  // Dates par défaut (dernier mois)
   const defaultStartDate = new Date();
   defaultStartDate.setMonth(defaultStartDate.getMonth() - 1);
   const defaultEndDate = new Date();
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-3 md:p-6">
       <div className="flex items-center gap-2 mb-6">
         <FileText className="w-6 h-6 text-blue-600" />
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">

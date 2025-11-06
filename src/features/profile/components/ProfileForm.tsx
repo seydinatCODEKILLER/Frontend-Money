@@ -8,7 +8,6 @@ import { Camera, X, Upload } from 'lucide-react';
 import { profileFormSchema, type ProfileFormValues } from '../validations/profile.schema';
 import { cn } from '@/lib/utils';
 import { useRef, useState } from 'react';
-import { DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface ProfileFormProps {
   user: {
@@ -63,14 +62,6 @@ export function ProfileForm({ user, onSubmit, isSubmitting }: ProfileFormProps) 
 
   return (
     <div className="space-y-6">
-      <DialogHeader>
-        <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-          Modifier le profil
-        </DialogTitle>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Mettez à jour vos informations personnelles et votre photo de profil
-        </p>
-      </DialogHeader>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

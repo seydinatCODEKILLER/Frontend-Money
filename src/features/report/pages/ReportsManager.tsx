@@ -39,10 +39,10 @@ export function ReportsManager() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="w-full md:max-w-6xl mx-auto p-3 md:p-6">
         {/* En-tête */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+          <div className="w-12 h-12 bg-blue-600 rounded-xl hidden md:flex items-center justify-center">
             <FileText className="w-6 h-6 text-white" />
           </div>
           <div>
