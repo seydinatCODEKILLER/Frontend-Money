@@ -12,6 +12,7 @@ import { CategoriesManager } from "@/features/categories/pages/CategoriesManager
 import { TransactionsManager } from "@/features/transactions/pages/Transaction";
 import { AlertsManager } from "@/features/alerts/pages/AlertsManager";
 import { ProfileManager } from "@/features/profile/pages/ProfileManager";
+import { ReportsManager } from "@/features/report/pages/ReportsManager";
 
 export const AppRoutes = () => {
   return (
@@ -38,6 +39,7 @@ export const AppRoutes = () => {
           <Route path="categories" element={<CategoriesManager />} />
           <Route path="notifications" element={<AlertsManager />} />
           <Route path="profile" element={<ProfileManager />} />
+          <Route path="reports" element={<ReportsManager />} />
           <Route path="" element={<Navigate to="/dashboard/analytics" replace />} />
         </Route>
         
