@@ -10,4 +10,5 @@ export const pageTitles: Record<string, string> = {
   "/dashboard/notifications": "Dashbaord Notifications",
   "/dashboard/profile": "Dashbaord Profile",
   "/dashboard/reports": "Rapports Financiers",
+  "/dashboard/recommendations": "Recommandations IA",
 };

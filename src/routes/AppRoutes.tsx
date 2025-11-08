@@ -14,6 +14,7 @@ import { AlertsManager } from "@/features/alerts/pages/AlertsManager";
 import { ProfileManager } from "@/features/profile/pages/ProfileManager";
 import { ReportsManager } from "@/features/report/pages/ReportsManager";
 import { NotFound } from "@/components/error/NotFound";
+import { RecommendationsPage } from "@/features/recommandation-ia/pages/RecommendationsPage";
 
 export const AppRoutes = () => {
   return (
@@ -41,6 +42,7 @@ export const AppRoutes = () => {
           <Route path="notifications" element={<AlertsManager />} />
           <Route path="profile" element={<ProfileManager />} />
           <Route path="reports" element={<ReportsManager />} />
+          <Route path="recommendations" element={<RecommendationsPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         

@@ -1,6 +1,7 @@
 import {
   BarChart3,
   Bell,
+  Cpu,
   LayoutDashboard,
   Receipt,
   Tag,
@@ -57,6 +58,12 @@ const navigationItems = [
     title: 'Rapports',
     href: '/dashboard/reports',
     icon: BarChart3,
+    description: '',
+  },
+  {
+    title: 'IA Recommandations',
+    href: '/dashboard/recommendations',
+    icon: Cpu,
     description: ''
   }
 ];
