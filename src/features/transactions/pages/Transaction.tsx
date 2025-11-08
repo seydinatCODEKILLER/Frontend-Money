@@ -10,6 +10,7 @@ import { useTransactions, useDeleteTransaction, useRestoreTransaction } from '..
 import type { Transaction } from '../types/transaction.types';
 import { PaginationControls } from '@/components/shared/PaginationControls';
 import { useViewMode } from '@/hooks/useViewMode';
+import { FloatingChatButton } from '@/features/chat-ia/components/FloatingChatButton';
 
 export function TransactionsManager() {
   const [page, setPage] = useState(1);
@@ -153,6 +154,9 @@ export function TransactionsManager() {
         confirmText="Restaurer"
         cancelText="Annuler"
       />
+
+      {/* IA Chat */}
+      <FloatingChatButton />
     </div>
   );
 }

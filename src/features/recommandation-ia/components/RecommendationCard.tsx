@@ -101,7 +101,7 @@ export function RecommendationCard({
         style={{ color: categoryColor }}
       />
 
-      <CardContent className="p-6 relative z-10">
+      <CardContent className="p-3 md:p-6 relative z-10">
         {/* Header avec type et badge */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
@@ -175,7 +175,7 @@ export function RecommendationCard({
       </CardContent>
 
       {/* Actions */}
-      <CardFooter className="pt-2 bg-gradient-to-t from-white/80 to-transparent dark:from-gray-900/80 backdrop-blur-sm border-t border-gray-100/50 dark:border-gray-700/50">
+      <CardFooter className="pt-2 p-2 bg-gradient-to-t from-white/80 to-transparent dark:from-gray-900/80 backdrop-blur-sm border-t border-gray-100/50 dark:border-gray-700/50">
         <div className="flex justify-end gap-2 w-full">
           <Button
             size="icon"

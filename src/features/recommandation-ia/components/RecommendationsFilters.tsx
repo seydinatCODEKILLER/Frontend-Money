@@ -1,4 +1,3 @@
-// features/recommendations/components/RecommendationsFilters.tsx
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -7,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { X, Filter, RefreshCw } from 'lucide-react';
+import { X, Filter, Bot } from 'lucide-react';
 
 interface RecommendationsFiltersProps {
   filters: {
@@ -83,7 +82,7 @@ export function RecommendationsFilters({
     <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity"></span>
 
     {/* Icône */}
-    <RefreshCw 
+    <Bot 
       className={`
         w-4 h-4 mr-2 
         ${isGenerating ? "animate-spin text-purple-600" : "text-blue-600 group-hover:text-purple-600 transition-colors"}
@@ -92,7 +91,7 @@ export function RecommendationsFilters({
 
     {/* Texte */}
     <span className="font-medium">
-      {isGenerating ? "Génération intelligente..." : "Générer des recommandations IA"}
+      {isGenerating ? "Génération intelligente..." : "Recommandations IA"}
     </span>
 
     {/* Effet glow subtil */}

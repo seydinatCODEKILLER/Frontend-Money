@@ -11,6 +11,7 @@ import { useDashboard } from "../hooks/useDashboard";
 import { useGlobalBudget } from "../hooks/useGlobalBudget";
 import { ExpensesPieChart } from "../components/ExpensesPieChart";
 import { useExpensesByCategory } from "../hooks/useExpensesByCategory";
+import { FloatingChatButton } from "@/features/chat-ia/components/FloatingChatButton";
 
 export function Dashboard() {
   const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useDashboard();
@@ -100,6 +101,10 @@ export function Dashboard() {
           <BudgetStatus budgets={overview.budgetStatus} />
         </motion.div>
       </div>
+
+      {/* IA Chat */}
+      <FloatingChatButton />
+      
     </div>
   );
 }

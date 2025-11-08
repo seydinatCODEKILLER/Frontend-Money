@@ -12,6 +12,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import type { ProfileFormValues } from "../validations/profile.schema";
 import { ProfileSkeleton } from "../template/Skeleton";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { FloatingChatButton } from "@/features/chat-ia/components/FloatingChatButton";
 
 export function ProfileManager() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -118,6 +119,9 @@ export function ProfileManager() {
           />
         </DialogContent>
       </Dialog>
+
+      {/* IA Chat */}
+      <FloatingChatButton />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { AlertsFilters } from '../components/AlertsFilters';
 import { AlertsGrid } from '../components/AlertsGrid';
 import { ViewToggle } from '@/components/shared/ViewToggle';
 import { useViewMode } from '@/hooks/useViewMode';
+import { FloatingChatButton } from '@/features/chat-ia/components/FloatingChatButton';
 
 export function AlertsManager() {
   const [page, setPage] = useState(1);
@@ -41,8 +42,8 @@ export function AlertsManager() {
         onPageChange={setPage}
       />
 
-      {/* Pagination */}
-      {/* Note: La pagination est gérée dans AlertsGrid */}
+      {/* IA Chat */}
+      <FloatingChatButton />
     </div>
   );
 }

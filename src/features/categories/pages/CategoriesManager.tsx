@@ -10,6 +10,7 @@ import { useCategories, useDeleteCategory, useRestoreCategory } from '../hooks/u
 import type { Category } from '../types/category.types';
 import { PaginationControls } from '@/components/shared/PaginationControls';
 import { useViewMode } from '@/hooks/useViewMode';
+import { FloatingChatButton } from '@/features/chat-ia/components/FloatingChatButton';
 
 export function CategoriesManager() {
   const [page, setPage] = useState(1);
@@ -147,6 +148,9 @@ export function CategoriesManager() {
         confirmText="Restaurer"
         cancelText="Annuler"
       />
+
+      {/* IA Chat */}
+      <FloatingChatButton />
     </div>
   );
 }

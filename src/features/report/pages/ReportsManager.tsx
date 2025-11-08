@@ -9,6 +9,7 @@ import { FileText, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import type { ReportFilters as ReportFiltersType, ReportData } from '../types/report.types';
 import { toast } from 'sonner';
+import { FloatingChatButton } from '@/features/chat-ia/components/FloatingChatButton';
 
 export function ReportsManager() {
   const [reportData, setReportData] = useState<ReportData | null>(null);
@@ -106,6 +107,9 @@ export function ReportsManager() {
           </div>
         )}
       </div>
+
+      {/* IA Chat */}
+      <FloatingChatButton />
     </div>
   );
 }
