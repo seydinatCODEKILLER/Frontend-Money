@@ -97,7 +97,7 @@ export function ChatModal({ open, onOpenChange }: ChatModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent 
-        className="w-full md:max-w-2xl lg:max-w-4xl h-[96vh] md:max-h-[90vh] lg:max-h-[85vh] flex flex-col p-0 rounded-2xl border-0 bg-gradient-to-br from-white to-gray-50/80 dark:from-gray-900 dark:to-gray-800/80 shadow-2xl overflow-hidden"
+        className="w-full md:max-w-2xl lg:max-w-4xl h-[94vh] md:max-h-[90vh] lg:max-h-[85vh] flex flex-col p-0 rounded-2xl border-0 bg-gradient-to-br from-white to-gray-50/80 dark:from-gray-900 dark:to-gray-800/80 shadow-2xl overflow-hidden"
       >
         {/* Description cachée pour l'accessibilité */}
         <DialogDescription className="sr-only">

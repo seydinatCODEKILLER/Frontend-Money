@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "https://moneywise-9crf.onrender.com/api",
-  timeout: 20000,
+  timeout: 50000,
   headers: { "Content-Type": "application/json" },
 });
 
@@ -21,13 +21,17 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    const { status, data } = error.response || {};
+    const { status, data, config } = error.response || {};
+
+    const isAiRoute =
+      config?.url?.includes("/chat") ||
+      config?.url?.includes("/ai");
 
     if (status === 401) {
       return Promise.reject(error);
     }
 
-    if (status === 403) {
+    if (status === 403 && !isAiRoute) {
       toast.error("Accès refusé", {
         description: data?.message || "Vous n'avez pas les permissions nécessaires.",
       });

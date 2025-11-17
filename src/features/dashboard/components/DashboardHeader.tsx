@@ -1,24 +1,24 @@
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from '@/components/shared/PageHeader';
 import { 
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { 
   RefreshCw, 
   Calendar, 
-  ChevronDown, 
+  ChevronDown,
+  Download,
+  Settings
 } from "lucide-react";
-// import { Link } from "react-router-dom";
-import { useState } from "react";
 
 interface DashboardHeaderProps {
   period: string;
   onRefresh: () => void;
   onPeriodChange?: (period: string) => void;
+  onExport?: () => void;
 }
 
 const periodOptions = [
@@ -30,73 +30,90 @@ const periodOptions = [
   { value: "last-month", label: "Mois dernier" },
 ];
 
-export function DashboardHeader({ period, onRefresh, onPeriodChange }: DashboardHeaderProps) {
-  const [selectedPeriod, setSelectedPeriod] = useState(period);
+export function DashboardHeader({ period, onRefresh, onPeriodChange, onExport }: DashboardHeaderProps) {
+  const getPeriodLabel = () => {
+    return periodOptions.find(opt => opt.value === period)?.label || period;
+  };
 
   const handlePeriodChange = (newPeriod: string) => {
-    setSelectedPeriod(newPeriod);
     onPeriodChange?.(newPeriod);
   };
 
-  const getPeriodLabel = () => {
-    return periodOptions.find(opt => opt.value === selectedPeriod)?.label || selectedPeriod;
-  };
+  // Actions principales
+  const actions = [
+    {
+      label: 'Actualiser',
+      icon: <RefreshCw className="w-4 h-4" />,
+      onClick: onRefresh,
+      variant: 'outline' as const,
+    }
+  ];
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
-    >
-      {/* Title Section */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-            Tableau de Bord
-          </h1>
-          <Badge variant="secondary" className="text-xs">
-            Live
-          </Badge>
-        </div>
-        <p className="text-muted-foreground">
-          Vue d'ensemble de votre situation financière
-        </p>
-      </div>
+  // Actions dropdown
+  const dropdownActions = [
+    ...(onExport ? [{
+      label: 'Exporter le rapport',
+      icon: <Download className="w-4 h-4" />,
+      onClick: onExport,
+    }] : []),
+    {
+      label: 'Paramètres du dashboard',
+      icon: <Settings className="w-4 h-4" />,
+      onClick: () => console.log('Paramètres du dashboard'),
+    }
+  ];
 
-      {/* Actions Section */}
-      <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-        {/* Period Selector */}
+  // Children avec le sélecteur de période
+  const headerChildren = (
+    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between pt-4">
+      {/* Sélecteur de période */}
+      <div className="flex items-center gap-2">
+        <Calendar className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          Période:
+        </span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
-              <span className="truncate max-w-32">{getPeriodLabel()}</span>
-              <ChevronDown className="h-4 w-4" />
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <span className="max-w-32 truncate">{getPeriodLabel()}</span>
+              <ChevronDown className="w-3 h-3" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="start" className="w-48">
             {periodOptions.map((option) => (
               <DropdownMenuItem
                 key={option.value}
                 onClick={() => handlePeriodChange(option.value)}
-                className={selectedPeriod === option.value ? "bg-muted" : ""}
+                className={period === option.value ? "bg-muted" : ""}
               >
                 {option.label}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-
-        {/* Refresh Button */}
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={onRefresh}
-          title="Actualiser les données"
-        >
-          <RefreshCw className="h-4 w-4" />
-        </Button>
       </div>
-    </motion.div>
+
+      {/* Indicateur de données en temps réel */}
+      <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
+        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+        Données en temps réel
+      </div>
+    </div>
+  );
+
+  return (
+    <PageHeader
+      title="Tableau de Bord"
+      description="Vue d'ensemble de votre situation financière"
+      icon="📊"
+      badge={{
+        text: 'Live',
+        variant: 'default'
+      }}
+      actions={actions}
+      dropdownActions={dropdownActions}
+    >
+      {headerChildren}
+    </PageHeader>
   );
 }

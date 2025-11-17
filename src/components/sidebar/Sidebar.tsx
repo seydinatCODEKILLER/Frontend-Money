@@ -43,7 +43,7 @@ const navigationItems = [
     description: ''
   },
   { 
-    title: 'Profil', 
+    title: 'Profile', 
     href: '/dashboard/profile', 
     icon: User,
     description: ''

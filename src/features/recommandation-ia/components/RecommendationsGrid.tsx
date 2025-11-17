@@ -3,8 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Lightbulb } from "lucide-react";
 import { useRecommendations, useDeleteRecommendation } from "../hooks/useRecommendations";
-import { PaginationControls } from "@/components/shared/PaginationControls";
 import type { RecommendationType } from "../types/recommendation.types";
+import { PaginationControls } from "@/components/shared/PaginationControls";
 
 interface RecommendationsGridProps {
   page: number;
@@ -12,14 +12,12 @@ interface RecommendationsGridProps {
     type: string;
   };
   onPageChange: (page: number) => void;
-  onGenerateNew?: () => void;
 }
 
 export function RecommendationsGrid({
   page,
   filters,
   onPageChange,
-  onGenerateNew,
 }: RecommendationsGridProps) {
   const { data, isLoading, error, refetch } = useRecommendations({
     page,
@@ -64,16 +62,10 @@ export function RecommendationsGrid({
         </h3>
         <p className="text-muted-foreground mb-6 max-w-md mx-auto">
           {filters.type 
-            ? "Aucune recommandation trouvée pour ce type. Essayez de modifier vos filtres ou générez de nouvelles recommandations."
+            ? "Aucune recommandation trouvée pour ce type. Essayez de modifier vos filtres."
             : "Générez des recommandations personnalisées basées sur vos transactions pour optimiser vos finances."
           }
         </p>
-        {onGenerateNew && (
-          <Button onClick={onGenerateNew} className="cursor-pointer">
-            <Lightbulb className="w-4 h-4 mr-2" />
-            Générer des recommandations
-          </Button>
-        )}
       </div>
     );
   }

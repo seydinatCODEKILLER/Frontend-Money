@@ -8,6 +8,7 @@ export interface ApiUser {
   avatarUrl?: string;
   statut: 'actif' | 'inactif';
   createdAt: string;
+  canUseAI: boolean;
 }
 
 export interface LoginCredentials {

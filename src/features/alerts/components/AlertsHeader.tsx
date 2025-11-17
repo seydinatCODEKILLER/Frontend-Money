@@ -1,28 +1,40 @@
-
-import {useAlertStats } from '../hooks/useAlert';
+import { PrebuiltPageHeader } from '@/components/shared/PageHeader';
+import { useAlertStats } from '../hooks/useAlert';
+import { Bell, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export function AlertsHeader() {
   const { data: stats } = useAlertStats();
 
+  const statsData = stats ? [
+    {
+      label: 'Total',
+      value: stats.totalCount,
+      icon: <Bell className="w-4 h-4" />
+    },
+    {
+      label: 'Non lues',
+      value: stats.unreadCount,
+      change: stats.totalCount > 0 ? Math.round((stats.unreadCount / stats.totalCount) * 100) : 0,
+      icon: <AlertTriangle className="w-4 h-4" />
+    },
+    {
+      label: 'Lues',
+      value: stats.totalCount - stats.unreadCount,
+      icon: <CheckCircle className="w-4 h-4" />
+    }
+  ] : [];
+
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-yellow-600 bg-clip-text text-transparent">
-          Alertes Budget
-        </h1>
-        <p className="text-muted-foreground mt-2">
-          {stats ? (
-            <>
-              <span className="font-semibold text-blue-600 dark:text-blue-400">
-                {stats.unreadCount} alerte{stats.unreadCount !== 1 ? 's' : ''} non lue{stats.unreadCount !== 1 ? 's' : ''}
-              </span>
-              {' '}sur {stats.totalCount} au total
-            </>
-          ) : (
-            "Surveillez vos budgets et dépenses"
-          )}
-        </p>
-      </div>
-    </div>
+    <PrebuiltPageHeader
+      title="Alertes Budget"
+      description="Surveillez vos budgets et dépenses en temps réel"
+      icon="🚨"
+      variant={stats ? "with-stats" : "simple"}
+      stats={statsData}
+      badge={stats && stats.unreadCount > 0 ? {
+        text: `${stats.unreadCount} non lue${stats.unreadCount !== 1 ? 's' : ''}`,
+        variant: 'destructive'
+      } : undefined}
+    />
   );
 }
